@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import { incrementCounter, decrementCounter } from './actions/buttonActions';
 
 class App extends Component {
   constructor(props) {
@@ -37,14 +39,24 @@ class App extends Component {
   
   render() {
     const { beers, isLoading } = this.state;
+    const { pageTitle, onButtonClick, currentCount, rootProp, incrementCounter, decrementCounter } = this.props;
+
+    console.log(currentCount)
+    console.log(this.props)
 
     return (
-      <div className="App">
+      <div className="App" rootProp={rootProp}>
+        <h1>{pageTitle}</h1>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <h2>{currentCount}</h2>
+
+          <button id="testing-button" onClick={incrementCounter}>increment me!</button>
+          <button id="testing-button" onClick={decrementCounter}>decrement me!</button>
+          <button id="testing-button" onClick={onButtonClick}>Click me!</button>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -60,4 +72,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentCount: state.buttonReducer.currentCount
+})
+
+const mapDispatchToProps = dispatch => ({
+  incrementCounter: () => dispatch(incrementCounter()),
+  decrementCounter: () => dispatch(decrementCounter())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
