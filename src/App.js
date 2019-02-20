@@ -39,7 +39,7 @@ class App extends Component {
   
   render() {
     const { beers, isLoading } = this.state;
-    const { pageTitle, onButtonClick, currentCount, rootProp, incrementCounter, decrementCounter } = this.props;
+    const { pageTitle, lastAction, onButtonClick, currentCount, rootProp, incrementCounter, decrementCounter } = this.props;
 
     console.log(currentCount)
     console.log(this.props)
@@ -52,6 +52,7 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <h2>{lastAction}</h2>
           <h2>{currentCount}</h2>
 
           <button id="testing-button" onClick={incrementCounter}>increment me!</button>
@@ -73,7 +74,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentCount: state.buttonReducer.currentCount
+  currentCount: state.buttonReducer.currentCount,
+  lastAction: state.buttonReducer.lastAction
 })
 
 const mapDispatchToProps = dispatch => ({

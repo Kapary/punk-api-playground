@@ -6,11 +6,13 @@ export default (state = initState, action) => {
     switch (action.type) {
         case 'incrementCounter':
             return {
-                currentCount: state.currentCount + 1
+                currentCount: state.currentCount + 1,
+                lastAction: action.payload
             };
         case 'decrementCounter':
             return {
-                currentCount: state.currentCount - 1
+                currentCount: state.currentCount - 1,
+                lastAction: action.payload
             };
         default:
             return state;
